@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
-import Footer from '@/components/Footer'
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,7 +28,7 @@ export default function RootLayout({
       <body suppressHydrationWarning className="flex flex-col">
         {children}
         <Toaster richColors position="bottom-right" closeButton />
-        <Footer />
+        
       </body>
     </html>
   )
