@@ -17,7 +17,10 @@ export async function POST(req: Request) {
       medicalCouncilState,
     } = await req.json()
 
-    // Validation
+    // =========================================================
+    // VALIDATION
+    // =========================================================
+
     if (
       !name ||
       !designation ||
@@ -36,7 +39,10 @@ export async function POST(req: Request) {
       )
     }
 
-    // Trim values
+    // =========================================================
+    // CLEAN VALUES
+    // =========================================================
+
     const cleanName = name.trim()
     const cleanDesignation = designation.trim()
     const cleanInstitute = institute.trim()
@@ -45,7 +51,10 @@ export async function POST(req: Request) {
     const cleanMedicalCouncilNo = medicalCouncilNo.trim()
     const cleanMedicalCouncilState = medicalCouncilState.trim()
 
-    // Validate mobile number
+    // =========================================================
+    // VALIDATE MOBILE NUMBER
+    // =========================================================
+
     if (!/^\d{10}$/.test(cleanMobileNo)) {
       return NextResponse.json(
         {
@@ -56,7 +65,10 @@ export async function POST(req: Request) {
       )
     }
 
-    // Validate email
+    // =========================================================
+    // VALIDATE EMAIL
+    // =========================================================
+
     if (!/^\S+@\S+\.\S+$/.test(cleanEmailId)) {
       return NextResponse.json(
         {
@@ -67,7 +79,10 @@ export async function POST(req: Request) {
       )
     }
 
-    // Check if mobile or email already exists
+    // =========================================================
+    // CHECK EXISTING REGISTRATION
+    // =========================================================
+
     const exists = await Register.findOne({
       $or: [{ mobileNo: cleanMobileNo }, { emailId: cleanEmailId }],
     })
@@ -94,8 +109,13 @@ export async function POST(req: Request) {
       }
     }
 
-    // Generate registration number
-    const last = await Register.findOne().sort({ createdAt: -1 })
+    // =========================================================
+    // GENERATE REGISTRATION NUMBER
+    // =========================================================
+
+    const last = await Register.findOne().sort({
+      createdAt: -1,
+    })
 
     let next = 1001
 
@@ -147,18 +167,30 @@ export async function POST(req: Request) {
     // =========================================================
 
     await sendEmail({
+      // Main recipient
       to: cleanEmailId,
+
+      // Recipient name
       name: cleanName,
-      subject: 'Practitioners Conclave 2026 - Registration Confirmation',
+
+      // ZeptoMail template
       templateKey:
         '2518b.554b0da719bc314.k1.f9413ab1-9af6-11f1-bd88-62df313bf14d.1a0149af9d9',
 
+      // BCC recipients requested by client
+      bcc: ['bdm@medivisioneyecare.com', 'jaaved@medconevents.in'],
+
+      // Template merge fields
       mergeInfo: {
         name: cleanName,
         regNum,
-        qrCode, // <-- IMPORTANT
+        qrCode,
       },
     })
+
+    // =========================================================
+    // SUCCESS RESPONSE
+    // =========================================================
 
     return NextResponse.json(
       {
@@ -171,7 +203,10 @@ export async function POST(req: Request) {
   } catch (error) {
     console.error('REGISTER ERROR:', error)
 
-    // Handle MongoDB duplicate key errors
+    // =========================================================
+    // MONGODB DUPLICATE KEY ERROR
+    // =========================================================
+
     if (
       typeof error === 'object' &&
       error !== null &&
@@ -187,6 +222,10 @@ export async function POST(req: Request) {
       )
     }
 
+    // =========================================================
+    // SERVER ERROR
+    // =========================================================
+
     return NextResponse.json(
       {
         success: false,
@@ -197,11 +236,17 @@ export async function POST(req: Request) {
   }
 }
 
+// =============================================================
+// GET ALL REGISTRATIONS
+// =============================================================
+
 export async function GET() {
   try {
     await connectDB()
 
-    const data = await Register.find().sort({ createdAt: -1 })
+    const data = await Register.find().sort({
+      createdAt: -1,
+    })
 
     return NextResponse.json({
       success: true,

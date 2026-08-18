@@ -15,6 +15,15 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Checkbox } from '@/components/ui/checkbox'
+import { medicalCouncils } from '@/data/medicalCouncil'
+
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 
 import { apiRequest } from '@/lib/apiRequest'
 import { z } from 'zod'
@@ -327,7 +336,7 @@ export default function EVreadyRegistrationPage() {
                       render={({ field }) => (
                         <Input
                           {...field}
-                          placeholder="Enter your full name"
+                          placeholder="Enter your full name eg. Dr. Kumar Reddy"
                           className="border-orange-200 bg-white text-black placeholder:text-gray-400 focus-visible:ring-orange-500"
                         />
                       )}
@@ -434,11 +443,25 @@ export default function EVreadyRegistrationPage() {
                       name="medicalCouncilState"
                       control={control}
                       render={({ field }) => (
-                        <Input
-                          {...field}
-                          placeholder="Enter medical council state"
-                          className="border-orange-200 bg-white text-black placeholder:text-gray-400 focus-visible:ring-orange-500"
-                        />
+                        <Select
+                          value={field.value}
+                          onValueChange={field.onChange}
+                        >
+                          <SelectTrigger className="w-full border-orange-200 bg-white p-3 text-black focus:ring-orange-500">
+                            <SelectValue placeholder="Select medical council state" />
+                          </SelectTrigger>
+
+                          <SelectContent>
+                            {medicalCouncils.map((council) => (
+                              <SelectItem
+                                key={council.value}
+                                value={council.value}
+                              >
+                                {council.label}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
                       )}
                     />
                   </Field>

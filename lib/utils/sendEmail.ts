@@ -5,19 +5,21 @@ const client = new SendMailClient({
   token: process.env.ZEPTO_TOKEN!,
 })
 
-// Send ZeptoMail Template Email
+interface SendEmailParams {
+  to: string
+  name: string
+  templateKey: string
+  mergeInfo?: Record<string, any>
+  bcc?: string[]
+}
+
 const sendEmail = async ({
   to,
   name,
   templateKey,
   mergeInfo = {},
-}: {
-  to: string
-  name: string
-  subject?: string
-  templateKey: string
-  mergeInfo?: Record<string, any>
-}) => {
+  bcc = [],
+}: SendEmailParams) => {
   try {
     if (!to) {
       throw new Error('Recipient email is required.')
@@ -56,12 +58,24 @@ const sendEmail = async ({
         },
       ],
 
+      // BCC recipients
+      ...(bcc.length > 0
+        ? {
+            bcc: bcc.map((email) => ({
+              email_address: {
+                address: email.trim(),
+                name: '',
+              },
+            })),
+          }
+        : {}),
+
       merge_info: mergeInfo,
     })
 
     return response
   } catch (error) {
-    console.error('ZeptoMail Error:', JSON.stringify(error, null, 2))
+    console.error('ZeptoMail Error:', error)
 
     throw error
   }
