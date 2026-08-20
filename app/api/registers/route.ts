@@ -178,7 +178,7 @@ export async function POST(req: Request) {
         '2518b.554b0da719bc314.k1.f9413ab1-9af6-11f1-bd88-62df313bf14d.1a0149af9d9',
 
       // BCC recipients requested by client
-      bcc: ['bdm@medivisioneyecare.com', 'jaaved@medconevents.in'],
+      bcc: ['bdm@medivisioneyecare.com', 'jaaved@medconevents.in' , 'meena.23@gmail.com'],
 
       // Template merge fields
       mergeInfo: {
