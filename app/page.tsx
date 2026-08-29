@@ -1026,7 +1026,7 @@ export default function EVreadyRegistrationPage() {
 
                 <div className="mx-auto mt-6 max-w-md rounded-xl border border-orange-200 bg-orange-50 p-5">
                   <p className="text-sm font-medium text-gray-600">
-                    Event Date &amp; Time
+                    Closing Time
                   </p>
 
                   <p className="mt-2 text-base font-bold text-orange-700 sm:text-lg">
