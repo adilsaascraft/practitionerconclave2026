@@ -478,6 +478,7 @@ export default function LuckyDraw() {
     <div className="relative w-full overflow-hidden">
       <Image
         src="/banner.png"
+        alt="ISOI 2026 Lucky Draw Banner"
         width={1600}
         height={776}
         priority
