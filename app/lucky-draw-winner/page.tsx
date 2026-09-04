@@ -180,7 +180,7 @@ export default function LuckyDraw() {
         setIsLoggedIn(true)
         setShowUploadScreen(true)
         toast.success('Welcome to ISOI 2026 Lucky Draw!', {
-          icon: <Trophy className="w-4 h-4 text-green-400" />,
+          icon: <Trophy className="w-4 h-4 text-violet-400" />,
         })
       } else {
         toast.error('Invalid Credentials', {
@@ -251,7 +251,7 @@ export default function LuckyDraw() {
       toast.success(
         `${validParticipants.length} Participants Loaded Successfully!`,
         {
-          icon: <Users className="w-4 h-4 text-green-400" />,
+          icon: <Users className="w-4 h-4 text-violet-400" />,
         },
       )
     } catch (error) {
@@ -346,20 +346,20 @@ export default function LuckyDraw() {
       }, delay * 1000)
     })
 
-    // Premium green-themed confetti effect
+    // Premium violet-themed confetti effect
     const count = 300
     const defaults = {
       origin: { y: 0.6 },
       zIndex: 1000,
     }
 
-    const greenColors = [
-      '#00ff00',
-      '#32cd32',
-      '#98fb98',
-      '#adff2f',
-      '#7cfc00',
-      '#00fa9a',
+    const violetColors = [
+      '#8b5cf6',
+      '#a855f7',
+      '#c4b5fd',
+      '#7c3aed',
+      '#9333ea',
+      '#d8b4fe',
     ]
 
     function fire(particleRatio: number, opts: confetti.Options) {
@@ -367,7 +367,7 @@ export default function LuckyDraw() {
         ...defaults,
         ...opts,
         particleCount: Math.floor(count * particleRatio),
-        colors: greenColors,
+        colors: violetColors,
       })
     }
 
@@ -488,25 +488,25 @@ export default function LuckyDraw() {
     </div>
   )
 
-  // Login screen - Green theme
+  // Login screen - Violet theme
   if (!isLoggedIn) {
     return (
       <>
         <Banner />
-        <div className="bg-gradient-to-br from-green-950 via-emerald-900 to-green-950 flex items-center justify-center p-4">
+        <div className="bg-gradient-to-br from-violet-950 via-purple-900 to-violet-950 flex items-center justify-center p-4">
           <motion.div
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.5 }}
             className="w-full max-w-md"
           >
-            <Card className="bg-white/10 backdrop-blur-xl border-2 border-green-400/30 shadow-2xl shadow-green-500/20">
+            <Card className="bg-white/10 backdrop-blur-xl border-2 border-violet-400/30 shadow-2xl shadow-violet-500/20">
               <CardContent className="p-4 space-y-1">
                 <div className="text-center">
-                  <h2 className="text-3xl font-bold bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">
+                  <h2 className="text-3xl font-bold bg-gradient-to-r from-violet-400 to-purple-400 bg-clip-text text-transparent">
                     Lucky Draw Application
                   </h2>
-                  <p className="text-green-300/60">Admin Portal</p>
+                  <p className="text-violet-300/60">Admin Portal</p>
                 </div>
 
                 <div className="space-y-4">
@@ -514,19 +514,19 @@ export default function LuckyDraw() {
                     placeholder="Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="bg-white/5 border-green-400/30 text-white placeholder:text-green-300/50 focus:border-green-400"
+                    className="bg-white/5 border-violet-400/30 text-white placeholder:text-violet-300/50 focus:border-violet-400"
                   />
                   <Input
                     placeholder="PIN"
                     type="password"
                     value={pin}
                     onChange={(e) => setPin(e.target.value)}
-                    className="bg-white/5 border-green-400/30 text-white placeholder:text-green-300/50 focus:border-green-400"
+                    className="bg-white/5 border-violet-400/30 text-white placeholder:text-violet-300/50 focus:border-violet-400"
                   />
                   <Button
                     onClick={handleLogin}
                     disabled={loadingLogin}
-                    className="w-full bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-bold py-6 text-lg shadow-lg shadow-green-500/30"
+                    className="w-full bg-gradient-to-r from-violet-500 to-purple-500 hover:from-violet-600 hover:to-purple-600 text-white font-bold py-6 text-lg shadow-lg shadow-violet-500/30"
                   >
                     {loadingLogin ? (
                       <motion.div
@@ -549,7 +549,7 @@ export default function LuckyDraw() {
           </motion.div>
         </div>
         {/* ---------------- FOOTER ---------------- */}
-        <footer className="border-t bg-green-100 backdrop-blur">
+        <footer className="border-t bg-violet-100 backdrop-blur">
           <div className="mx-auto max-w-7xl px-4 py-4 text-center text-sm text-muted-foreground">
             © {new Date().getFullYear()} All Rights Reserved. Powered by
             SaaScraft Studio (India) Pvt. Ltd.
@@ -559,17 +559,17 @@ export default function LuckyDraw() {
     )
   }
 
-  // Upload screen - Green theme
+  // Upload screen - Violet theme
   if (showUploadScreen) {
     return (
       <>
         <Banner />
-        <div className="min-h-[calc(100vh-80px)] bg-gradient-to-br from-green-950 via-emerald-900 to-green-950 flex items-center justify-center p-4">
+        <div className="min-h-[calc(100vh-80px)] bg-gradient-to-br from-violet-950 via-purple-900 to-violet-950 flex items-center justify-center p-4">
           {/* Logout button */}
           <Button
             onClick={handleLogout}
             variant="ghost"
-            className="absolute top-4 right-4 text-green-300 hover:text-green-400"
+            className="absolute top-4 right-4 text-violet-300 hover:text-violet-400"
           >
             <LogOut className="w-4 h-4 mr-2" />
             Logout
@@ -580,7 +580,7 @@ export default function LuckyDraw() {
             animate={{ scale: 1, opacity: 1 }}
             className="w-full max-w-2xl"
           >
-            <Card className="bg-white/10 backdrop-blur-xl border-2 border-green-400/30 shadow-2xl shadow-green-500/20">
+            <Card className="bg-white/10 backdrop-blur-xl border-2 border-violet-400/30 shadow-2xl shadow-violet-500/20">
               <CardContent className="p-12 space-y-8">
                 <div className="text-center space-y-4">
                   <motion.div
@@ -590,12 +590,12 @@ export default function LuckyDraw() {
                     transition={{ duration: 2, repeat: Infinity }}
                     className="flex justify-center"
                   >
-                    <Upload className="w-20 h-20 text-green-400" />
+                    <Upload className="w-20 h-20 text-violet-400" />
                   </motion.div>
-                  <h2 className="text-4xl font-bold bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">
+                  <h2 className="text-4xl font-bold bg-gradient-to-r from-violet-400 to-purple-400 bg-clip-text text-transparent">
                     Ready for the Lucky Draw?
                   </h2>
-                  <p className="text-green-300/60 text-lg">
+                  <p className="text-violet-300/60 text-lg">
                     Upload your participants list to begin
                   </p>
                 </div>
@@ -611,7 +611,7 @@ export default function LuckyDraw() {
                         }
                       }}
                       disabled={isUploading}
-                      className="bg-white/5 border-green-400/30 text-white file:bg-green-500 file:text-white file:border-0 file:rounded-lg file:px-4 file:py-2 file:mr-4 hover:file:bg-green-600 cursor-pointer"
+                      className="bg-white/5 border-violet-400/30 text-white file:bg-violet-500 file:text-white file:border-0 file:rounded-lg file:px-4 file:py-2 file:mr-4 hover:file:bg-violet-600 cursor-pointer"
                     />
                     {isUploading && (
                       <motion.div
@@ -619,19 +619,19 @@ export default function LuckyDraw() {
                         animate={{ opacity: 1 }}
                         className="absolute inset-0 bg-black/50 flex items-center justify-center rounded-lg"
                       >
-                        <Loader2 className="w-6 h-6 text-green-400 animate-spin" />
+                        <Loader2 className="w-6 h-6 text-violet-400 animate-spin" />
                       </motion.div>
                     )}
                   </div>
 
-                  <div className="bg-green-400/10 border border-green-400/30 rounded-lg p-4">
-                    <p className="text-sm text-green-300">
-                      <span className="text-green-400 font-semibold">
+                  <div className="bg-violet-400/10 border border-violet-400/30 rounded-lg p-4">
+                    <p className="text-sm text-violet-300">
+                      <span className="text-violet-400 font-semibold">
                         CSV Format:
                       </span>{' '}
                       name, email, mobile
                     </p>
-                    <p className="text-xs text-green-300/50 mt-2">
+                    <p className="text-xs text-violet-300/50 mt-2">
                       Example: Adil, adil@example.com, 1234567890
                     </p>
                   </div>
@@ -641,7 +641,7 @@ export default function LuckyDraw() {
           </motion.div>
         </div>
         {/* ---------------- FOOTER ---------------- */}
-        <footer className="border-t bg-green-100 backdrop-blur">
+        <footer className="border-t bg-violet-100 backdrop-blur">
           <div className="mx-auto max-w-7xl px-4 py-4 text-center text-sm text-muted-foreground">
             © {new Date().getFullYear()} All Rights Reserved. Powered by
             SaaScraft Studio (India) Pvt. Ltd.
@@ -651,17 +651,17 @@ export default function LuckyDraw() {
     )
   }
 
-  // Ready to draw screen (after CSV upload) - Green theme
+  // Ready to draw screen (after CSV upload) - Violet theme
   if (!isRunning && !winner && participants.length > 0) {
     return (
       <>
         <Banner />
-        <div className="min-h-[calc(100vh-80px)] bg-gradient-to-br from-green-950 via-emerald-900 to-green-950 flex items-center justify-center p-4">
+        <div className="min-h-[calc(100vh-80px)] bg-gradient-to-br from-violet-950 via-purple-900 to-violet-950 flex items-center justify-center p-4">
           {/* Logout button */}
           <Button
             onClick={handleLogout}
             variant="ghost"
-            className="absolute top-4 right-4 text-green-300 hover:text-green-400"
+            className="absolute top-4 right-4 text-violet-300 hover:text-violet-400"
           >
             <LogOut className="w-4 h-4 mr-2" />
             Logout
@@ -671,7 +671,7 @@ export default function LuckyDraw() {
           <Button
             onClick={resetToUpload}
             variant="ghost"
-            className="absolute top-4 left-4 text-green-300 hover:text-green-400"
+            className="absolute top-4 left-4 text-violet-300 hover:text-violet-400"
           >
             ← Back
           </Button>
@@ -681,7 +681,7 @@ export default function LuckyDraw() {
             animate={{ scale: 1, opacity: 1 }}
             className="w-full max-w-4xl"
           >
-            <Card className="bg-white/10 backdrop-blur-xl border-2 border-green-400/30 shadow-2xl shadow-green-500/20">
+            <Card className="bg-white/10 backdrop-blur-xl border-2 border-violet-400/30 shadow-2xl shadow-violet-500/20">
               <CardContent className="p-12 space-y-8">
                 <div className="text-center space-y-4">
                   <motion.div
@@ -695,21 +695,21 @@ export default function LuckyDraw() {
                     }}
                     className="flex justify-center"
                   >
-                    <Users className="w-20 h-20 text-green-400" />
+                    <Users className="w-20 h-20 text-violet-400" />
                   </motion.div>
 
-                  <h2 className="text-4xl font-bold bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">
+                  <h2 className="text-4xl font-bold bg-gradient-to-r from-violet-400 to-purple-400 bg-clip-text text-transparent">
                     {participants.length} Participants Ready
                   </h2>
 
-                  <p className="text-green-300/60 text-lg">
+                  <p className="text-violet-300/60 text-lg">
                     Click below to start the lucky draw spin
                   </p>
                 </div>
 
                 {/* Preview first few participants */}
-                <div className="bg-black/30 rounded-lg p-6 max-h-60 overflow-y-auto border border-green-400/20">
-                  <h3 className="text-green-400 font-semibold mb-4">
+                <div className="bg-black/30 rounded-lg p-6 max-h-60 overflow-y-auto border border-violet-400/20">
+                  <h3 className="text-violet-400 font-semibold mb-4">
                     Preview (First 5):
                   </h3>
                   <div className="space-y-2">
@@ -719,11 +719,11 @@ export default function LuckyDraw() {
                         initial={{ x: -20, opacity: 0 }}
                         animate={{ x: 0, opacity: 1 }}
                         transition={{ delay: index * 0.1 }}
-                        className="flex items-center space-x-3 text-green-300"
+                        className="flex items-center space-x-3 text-violet-300"
                       >
-                        <span className="text-green-400">{index + 1}.</span>
+                        <span className="text-violet-400">{index + 1}.</span>
                         <span>{p.name}</span>
-                        <span className="text-green-300/50 text-sm">
+                        <span className="text-violet-300/50 text-sm">
                           ({p.mobile})
                         </span>
                       </motion.div>
@@ -736,7 +736,7 @@ export default function LuckyDraw() {
                     onClick={() => setIsMuted(!isMuted)}
                     variant="outline"
                     size="icon"
-                    className="border-green-400/30 text-green-400 hover:bg-green-400/10"
+                    className="border-violet-400/30 text-violet-400 hover:bg-violet-400/10"
                   >
                     {isMuted ? (
                       <VolumeX className="w-5 h-5" />
@@ -747,7 +747,7 @@ export default function LuckyDraw() {
                   <Button
                     onClick={startDraw}
                     size="lg"
-                    className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white px-12 py-6 text-xl shadow-lg shadow-green-500/30"
+                    className="bg-gradient-to-r from-violet-500 to-purple-500 hover:from-violet-600 hover:to-purple-600 text-white px-12 py-6 text-xl shadow-lg shadow-violet-500/30"
                   >
                     Start Lucky Draw Spin 🎲
                   </Button>
@@ -757,7 +757,7 @@ export default function LuckyDraw() {
           </motion.div>
         </div>
         {/* ---------------- FOOTER ---------------- */}
-        <footer className="border-t bg-green-100 backdrop-blur">
+        <footer className="border-t bg-violet-100 backdrop-blur">
           <div className="mx-auto max-w-7xl px-4 py-4 text-center text-sm text-muted-foreground">
             © {new Date().getFullYear()} All Rights Reserved. Powered by
             SaaScraft Studio (India) Pvt. Ltd.
@@ -772,12 +772,12 @@ export default function LuckyDraw() {
     return (
       <>
         <Banner />
-        <div className="bg-gradient-to-br from-green-950 via-emerald-900 to-green-950 flex items-center justify-center p-4">
+        <div className="bg-gradient-to-br from-violet-950 via-purple-900 to-violet-950 flex items-center justify-center p-4">
           {/* Logout button */}
           <Button
             onClick={handleLogout}
             variant="ghost"
-            className="absolute top-4 right-4 z-50 text-green-300 hover:text-green-400"
+            className="absolute top-4 right-4 z-50 text-violet-300 hover:text-violet-400"
           >
             <LogOut className="w-4 h-4 mr-2" />
             Logout
@@ -788,7 +788,7 @@ export default function LuckyDraw() {
             onClick={() => setIsMuted(!isMuted)}
             variant="ghost"
             size="icon"
-            className="absolute top-4 left-4 z-50 text-green-300 hover:text-green-400"
+            className="absolute top-4 left-4 z-50 text-violet-300 hover:text-violet-400"
           >
             {isMuted ? (
               <VolumeX className="w-5 h-5" />
@@ -797,17 +797,17 @@ export default function LuckyDraw() {
             )}
           </Button>
 
-          {/* Animated background effects - Green theme */}
+          {/* Animated background effects - Violet theme */}
           <motion.div
             animate={{
               opacity: [0.3, 0.6, 0.3],
               scale: [1, 1.2, 1],
             }}
             transition={{ duration: 3, repeat: Infinity }}
-            className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,255,0,0.15),transparent_70%)]"
+            className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(139,92,246,0.15),transparent_70%)]"
           />
 
-          {/* Countdown Timer - Top Center with Green Theme */}
+          {/* Countdown Timer - Top Center with Violet Theme */}
           <AnimatePresence>
             {showCountdown && (
               <motion.div
@@ -817,25 +817,25 @@ export default function LuckyDraw() {
                 className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50"
               >
                 <div className="relative">
-                  {/* Glowing background - Green */}
+                  {/* Glowing background - Violet */}
                   <motion.div
                     animate={{
                       scale: [1, 1.2, 1],
                       opacity: [0.5, 0.8, 0.5],
                     }}
                     transition={{ duration: 1, repeat: Infinity }}
-                    className="absolute inset-0 bg-green-400 rounded-full blur-xl"
+                    className="absolute inset-0 bg-violet-400 rounded-full blur-xl"
                   />
 
                   {/* Timer display */}
-                  <div className="relative bg-black/50 backdrop-blur-xl border-4 border-green-400 rounded-full px-8 py-4">
+                  <div className="relative bg-black/50 backdrop-blur-xl border-4 border-violet-400 rounded-full px-8 py-4">
                     <motion.span
                       animate={{
                         scale: [1, 1.1, 1],
                         color: ['#00ff00', '#adff2f', '#00ff00'],
                       }}
                       transition={{ duration: 1, repeat: Infinity }}
-                      className="text-5xl font-bold bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent"
+                      className="text-5xl font-bold bg-gradient-to-r from-violet-400 to-purple-400 bg-clip-text text-transparent"
                     >
                       {countdown}s
                     </motion.span>
@@ -865,7 +865,7 @@ export default function LuckyDraw() {
                 className="text-center mb-8"
               >
                 <motion.div
-                  className="h-1 bg-gradient-to-r from-green-400 to-emerald-400 rounded-full mx-auto mt-2"
+                  className="h-1 bg-gradient-to-r from-violet-400 to-purple-400 rounded-full mx-auto mt-2"
                   style={{ width: `${(spinSpeed / SPIN_SPEED) * 100}%` }}
                 />
               </motion.div>
@@ -890,7 +890,7 @@ export default function LuckyDraw() {
                     opacity: [0.3, 0.6, 0.3],
                   }}
                   transition={{ duration: 2, repeat: Infinity }}
-                  className="absolute inset-0 bg-green-400 rounded-3xl blur-3xl"
+                  className="absolute inset-0 bg-violet-400 rounded-3xl blur-3xl"
                 />
 
                 {/* Main spin card */}
@@ -904,8 +904,8 @@ export default function LuckyDraw() {
     relative
     bg-black/40
     backdrop-blur-2xl
-    border border-green-400/40
-    shadow-2xl shadow-green-500/30
+    border border-violet-400/40
+    shadow-2xl shadow-violet-500/30
     rounded-3xl
     overflow-hidden
   "
@@ -926,7 +926,7 @@ export default function LuckyDraw() {
                             repeat: Infinity,
                           }}
                         >
-                          <Icon className="w-8 h-8 text-green-400/30" />
+                          <Icon className="w-8 h-8 text-violet-400/30" />
                         </motion.div>
                       ))}
                     </div>
@@ -945,7 +945,7 @@ export default function LuckyDraw() {
                             repeat: Infinity,
                           }}
                         >
-                          <Icon className="w-8 h-8 text-green-400/30" />
+                          <Icon className="w-8 h-8 text-violet-400/30" />
                         </motion.div>
                       ))}
                     </div>
@@ -967,7 +967,7 @@ export default function LuckyDraw() {
                               repeat: Infinity,
                             }}
                           >
-                            <Icon className="w-12 h-12 text-green-400" />
+                            <Icon className="w-12 h-12 text-violet-400" />
                           </motion.div>
                         ))}
                       </div>
@@ -989,7 +989,7 @@ export default function LuckyDraw() {
     sm:text-5xl
     lg:text-7xl
     font-bold
-    bg-gradient-to-r from-green-400 via-emerald-400 to-green-400
+    bg-gradient-to-r from-violet-400 via-purple-400 to-violet-400
     bg-clip-text
     text-transparent
   "
@@ -1011,7 +1011,7 @@ export default function LuckyDraw() {
                         {[1, 2, 3].map((_, i) => (
                           <div
                             key={i}
-                            className="w-3 h-3 rounded-full bg-green-400"
+                            className="w-3 h-3 rounded-full bg-violet-400"
                             style={{
                               opacity: 0.3 + (spinSpeed / SPIN_SPEED) * 0.7,
                             }}
@@ -1020,7 +1020,7 @@ export default function LuckyDraw() {
                       </motion.div>
 
                       {/* Info text */}
-                      <p className="text-green-300/40 text-lg mt-8">
+                      <p className="text-violet-300/40 text-lg mt-8">
                         {participants.length} participants
                       </p>
                     </div>
@@ -1043,7 +1043,7 @@ export default function LuckyDraw() {
                       repeat: Infinity,
                     }}
                   >
-                    <Icon className="w-6 h-6 text-green-400/40" />
+                    <Icon className="w-6 h-6 text-violet-400/40" />
                   </motion.div>
                 ))}
               </div>
@@ -1051,7 +1051,7 @@ export default function LuckyDraw() {
           </div>
         </div>
         {/* ---------------- FOOTER ---------------- */}
-        <footer className="border-t bg-green-100 backdrop-blur">
+        <footer className="border-t bg-violet-100 backdrop-blur">
           <div className="mx-auto max-w-7xl px-4 py-4 text-center text-sm text-muted-foreground">
             © {new Date().getFullYear()} All Rights Reserved. Powered by
             SaaScraft Studio (India) Pvt. Ltd.
@@ -1061,17 +1061,17 @@ export default function LuckyDraw() {
     )
   }
 
-  // Winner Reveal Screen - Premium Design with Green Theme
+  // Winner Reveal Screen - Premium Design with Violet Theme
   if (winner) {
     return (
       <>
         <Banner />
-        <div className="min-h-[calc(100vh-80px)] bg-gradient-to-br from-green-950 via-emerald-900 to-green-950 flex items-center justify-center p-4">
+        <div className="min-h-[calc(100vh-80px)] bg-gradient-to-br from-violet-950 via-purple-900 to-violet-950 flex items-center justify-center p-4">
           {/* Logout button */}
           <Button
             onClick={handleLogout}
             variant="ghost"
-            className="absolute top-4 right-4 z-50 text-green-300 hover:text-green-400"
+            className="absolute top-4 right-4 z-50 text-violet-300 hover:text-violet-400"
           >
             <LogOut className="w-4 h-4 mr-2" />
             Logout
@@ -1081,7 +1081,7 @@ export default function LuckyDraw() {
           <Button
             onClick={resetToUpload}
             variant="ghost"
-            className="absolute top-4 left-4 z-50 text-green-300 hover:text-green-400"
+            className="absolute top-4 left-4 z-50 text-violet-300 hover:text-violet-400"
           >
             ← New Draw
           </Button>
@@ -1091,7 +1091,7 @@ export default function LuckyDraw() {
             onClick={() => setIsMuted(!isMuted)}
             variant="ghost"
             size="icon"
-            className="absolute top-4 left-24 z-50 text-green-300 hover:text-green-400"
+            className="absolute top-4 left-24 z-50 text-violet-300 hover:text-violet-400"
           >
             {isMuted ? (
               <VolumeX className="w-5 h-5" />
@@ -1100,17 +1100,17 @@ export default function LuckyDraw() {
             )}
           </Button>
 
-          {/* Premium background effects - Green */}
+          {/* Premium background effects - Violet */}
           <motion.div
             animate={{
               scale: [1, 1.5, 1],
               opacity: [0.3, 0.6, 0.3],
             }}
             transition={{ duration: 4, repeat: Infinity }}
-            className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,255,0,0.3),transparent_70%)]"
+            className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(139,92,246,0.3),transparent_70%)]"
           />
 
-          {/* Floating particles - Green icons */}
+          {/* Floating particles - Violet icons */}
           {Array(40)
             .fill(0)
             .map((_, i) => (
@@ -1134,11 +1134,11 @@ export default function LuckyDraw() {
                 }}
               >
                 {i % 3 === 0 ? (
-                  <Leaf className="w-8 h-8 text-green-400" />
+                  <Leaf className="w-8 h-8 text-violet-400" />
                 ) : i % 3 === 1 ? (
-                  <Zap className="w-8 h-8 text-green-400" />
+                  <Zap className="w-8 h-8 text-violet-400" />
                 ) : (
-                  <Flower2 className="w-8 h-8 text-green-400" />
+                  <Flower2 className="w-8 h-8 text-violet-400" />
                 )}
               </motion.div>
             ))}
@@ -1150,9 +1150,9 @@ export default function LuckyDraw() {
             transition={{ duration: 1, type: 'spring' }}
             className="relative z-10 min-h-screen flex items-center justify-center p-4"
           >
-            <Card className="bg-white/10 backdrop-blur-2xl border-4 border-green-400/50 shadow-2xl shadow-green-500/30 max-w-3xl w-full">
+            <Card className="bg-white/10 backdrop-blur-2xl border-4 border-violet-400/50 shadow-2xl shadow-violet-500/30 max-w-3xl w-full">
               <CardContent className="p-12 space-y-8">
-                {/* Trophy animation - Green */}
+                {/* Trophy animation - Violet */}
                 <motion.div
                   animate={{
                     y: [0, -20, 0],
@@ -1162,11 +1162,11 @@ export default function LuckyDraw() {
                   className="flex justify-center"
                 >
                   <div className="relative">
-                    <Trophy className="w-32 h-32 text-green-400 filter drop-shadow-[0_0_30px_rgba(0,255,0,0.7)]" />
+                    <Trophy className="w-32 h-32 text-violet-400 filter drop-shadow-[0_0_30px_rgba(139,92,246,0.7)]" />
                     <motion.div
                       animate={{ scale: [1, 1.5, 1], opacity: [0.5, 0, 0.5] }}
                       transition={{ duration: 2, repeat: Infinity }}
-                      className="absolute inset-0 bg-green-400 rounded-full filter blur-xl"
+                      className="absolute inset-0 bg-violet-400 rounded-full filter blur-xl"
                     />
                   </div>
                 </motion.div>
@@ -1176,13 +1176,13 @@ export default function LuckyDraw() {
                   <motion.h2
                     animate={{
                       textShadow: [
-                        '0 0 10px rgba(0,255,0,0.5)',
-                        '0 0 20px rgba(0,255,0,0.8)',
-                        '0 0 10px rgba(0,255,0,0.5)',
+                        '0 0 10px rgba(139,92,246,0.5)',
+                        '0 0 20px rgba(139,92,246,0.8)',
+                        '0 0 10px rgba(139,92,246,0.5)',
                       ],
                     }}
                     transition={{ duration: 2, repeat: Infinity }}
-                    className="text-xl md:text-2xl font-bold bg-gradient-to-r from-green-400 via-emerald-400 to-green-400 bg-clip-text text-transparent"
+                    className="text-xl md:text-2xl font-bold bg-gradient-to-r from-violet-400 via-purple-400 to-violet-400 bg-clip-text text-transparent"
                   >
                     Congratulations to the Lucky Draw Winner!
                   </motion.h2>
@@ -1200,20 +1200,20 @@ export default function LuckyDraw() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
                       <motion.div
                         whileHover={{ scale: 1.05 }}
-                        className="bg-white/5 backdrop-blur rounded-lg p-4 border border-green-400/30"
+                        className="bg-white/5 backdrop-blur rounded-lg p-4 border border-violet-400/30"
                       >
-                        <p className="text-sm text-green-300/60">Contact</p>
-                        <p className="text-xl text-green-400">
+                        <p className="text-sm text-violet-300/60">Contact</p>
+                        <p className="text-xl text-violet-400">
                           {winner.mobile}
                         </p>
                       </motion.div>
 
                       <motion.div
                         whileHover={{ scale: 1.05 }}
-                        className="bg-white/5 backdrop-blur rounded-lg p-4 border border-emerald-400/30"
+                        className="bg-white/5 backdrop-blur rounded-lg p-4 border border-purple-400/30"
                       >
-                        <p className="text-sm text-green-300/60">Email</p>
-                        <p className="text-xl text-emerald-400">
+                        <p className="text-sm text-violet-300/60">Email</p>
+                        <p className="text-xl text-purple-400">
                           {winner.email}
                         </p>
                       </motion.div>
@@ -1228,7 +1228,7 @@ export default function LuckyDraw() {
                       }}
                       className="mt-8"
                     >
-                      <Award className="w-16 h-16 mx-auto text-green-400" />
+                      <Award className="w-16 h-16 mx-auto text-violet-400" />
                     </motion.div>
                   </motion.div>
                 </div>
@@ -1237,7 +1237,7 @@ export default function LuckyDraw() {
           </motion.div>
         </div>
         {/* ---------------- FOOTER ---------------- */}
-        <footer className="border-t bg-green-100 backdrop-blur">
+        <footer className="border-t bg-violet-100 backdrop-blur">
           <div className="mx-auto max-w-7xl px-4 py-4 text-center text-sm text-muted-foreground">
             © {new Date().getFullYear()} All Rights Reserved. Powered by
             SaaScraft Studio (India) Pvt. Ltd.
