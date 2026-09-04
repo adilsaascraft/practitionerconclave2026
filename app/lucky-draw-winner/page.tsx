@@ -1184,7 +1184,7 @@ export default function LuckyDraw() {
                     transition={{ duration: 2, repeat: Infinity }}
                     className="text-xl md:text-2xl font-bold bg-gradient-to-r from-green-400 via-emerald-400 to-green-400 bg-clip-text text-transparent"
                   >
-                    Lucky Draw EV 2 Wheeler Winner
+                    Congratulations to the Lucky Draw Winner!
                   </motion.h2>
 
                   <motion.div
