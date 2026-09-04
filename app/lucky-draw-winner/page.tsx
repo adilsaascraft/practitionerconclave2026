@@ -65,6 +65,7 @@ export default function LuckyDraw() {
   const spinIntervalRef = useRef<NodeJS.Timeout | undefined>(undefined)
   const beepIntervalRef = useRef<NodeJS.Timeout | undefined>(undefined)
   const audioRefs = useRef<{
+    music?: HTMLAudioElement
     spin?: HTMLAudioElement
     win?: HTMLAudioElement
     tick?: HTMLAudioElement
@@ -115,19 +116,41 @@ export default function LuckyDraw() {
   useEffect(() => {
     // Create audio elements
     audioRefs.current = {
+      music: new Audio('/audio/lucky-draw-music.mp3'),
       spin: new Audio('/spin.mp3'),
       win: new Audio('/win.mp3'),
       tick: new Audio('/tick.mp3'),
     }
 
     // Configure audio settings
-    Object.values(audioRefs.current).forEach((audio) => {
-      if (audio) {
-        audio.volume = 0.3
-        audio.loop = true
-        audio.load()
-      }
-    })
+    const music = audioRefs.current.music
+    if (music) {
+      music.volume = 0.35
+      music.loop = true
+      music.preload = 'auto'
+      music.load()
+    }
+
+    const spin = audioRefs.current.spin
+    if (spin) {
+      spin.volume = 0.3
+      spin.loop = true
+      spin.load()
+    }
+
+    const win = audioRefs.current.win
+    if (win) {
+      win.volume = 0.8
+      win.loop = false
+      win.load()
+    }
+
+    const tick = audioRefs.current.tick
+    if (tick) {
+      tick.volume = 0.3
+      tick.loop = false
+      tick.load()
+    }
 
     return () => {
       // Cleanup audio
@@ -208,6 +231,7 @@ export default function LuckyDraw() {
     if (beepIntervalRef.current) {
       clearInterval(beepIntervalRef.current)
     }
+    stopSound('music')
     stopSound('spin')
     toast.success('Logged out successfully')
   }
@@ -304,8 +328,8 @@ export default function LuckyDraw() {
     }
     spinIntervalRef.current = setInterval(spin, 1000 / SPIN_SPEED) // SPIN_SPEED times per second
 
-    // Start spin sound
-    playSound('spin', true)
+    // Start background music for the full 60-second draw
+    playSound('music', true)
 
     // Clear any existing beep interval
     if (beepIntervalRef.current) {
@@ -327,12 +351,14 @@ export default function LuckyDraw() {
     if (beepIntervalRef.current) {
       clearInterval(beepIntervalRef.current)
     }
+    stopSound('music')
     stopSound('spin')
   }
 
   // Celebration effect
   const celebrate = useCallback(() => {
-    // Stop spin sound and play win sound
+    // Stop background music and play the winner sound
+    stopSound('music')
     stopSound('spin')
     if (!isMuted) {
       playSound('win', false)
@@ -783,12 +809,16 @@ export default function LuckyDraw() {
             Logout
           </Button>
 
-          {/* Mute button */}
+          {/* Music mute button */}
           <Button
             onClick={() => setIsMuted(!isMuted)}
             variant="ghost"
             size="icon"
             className="absolute top-4 left-4 z-50 text-violet-300 hover:text-violet-400"
+            aria-label={
+              isMuted ? 'Unmute lucky draw music' : 'Mute lucky draw music'
+            }
+            title={isMuted ? 'Unmute music' : 'Mute music'}
           >
             {isMuted ? (
               <VolumeX className="w-5 h-5" />
@@ -807,7 +837,7 @@ export default function LuckyDraw() {
             className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(139,92,246,0.15),transparent_70%)]"
           />
 
-          {/* Countdown Timer - Top Center with Violet Theme */}
+          {/* Countdown Timer - Bottom Center with Violet Theme */}
           <AnimatePresence>
             {showCountdown && (
               <motion.div
@@ -846,18 +876,8 @@ export default function LuckyDraw() {
           </AnimatePresence>
 
           {/* Main Spin Display */}
-          <div className="relative z-10 min-h-screen flex items-center justify-center">
-            <div
-              className="
-  max-w-[380px]
-  sm:max-w-[600px]
-  md:max-w-[850px]
-  lg:max-w-[1100px]
-  xl:max-w-[1300px]
-  mx-auto
-  px-4
-"
-            >
+          <div className="relative z-10 min-h-screen min-w-[1024px] flex items-center justify-center">
+            <div className="w-[calc(100vw-64px)] max-w-[1200px] min-w-[1024px] mx-auto px-4">
               {/* Speed indicator */}
               <motion.div
                 animate={{ opacity: [0.5, 1, 0.5] }}
@@ -881,7 +901,7 @@ export default function LuckyDraw() {
                   repeat: Infinity,
                   ease: 'linear',
                 }}
-                className="relative"
+                className="relative w-full"
               >
                 {/* Glowing background */}
                 <motion.div
@@ -896,19 +916,16 @@ export default function LuckyDraw() {
                 {/* Main spin card */}
                 <Card
                   className="
-    w-[380px]
-    sm:w-[600px]
-    lg:w-[1000px]
-    xl:w-[1200px]
-    mx-auto
-    relative
-    bg-black/40
-    backdrop-blur-2xl
-    border border-violet-400/40
-    shadow-2xl shadow-violet-500/30
-    rounded-3xl
-    overflow-hidden
-  "
+          w-full
+          min-w-[1024px]
+          relative
+          bg-black/40
+          backdrop-blur-2xl
+          border border-violet-400/40
+          shadow-2xl shadow-violet-500/30
+          rounded-3xl
+          overflow-hidden
+        "
                 >
                   <CardContent className="p-16">
                     {/* Decorative side icons */}
@@ -979,20 +996,35 @@ export default function LuckyDraw() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -20 }}
                         transition={{ duration: 0.1 }}
+                        className="
+                w-full
+                min-w-0
+                min-h-[180px]
+                flex
+                items-center
+                justify-center
+                px-12
+                overflow-hidden
+              "
                       >
                         <h2
                           className="
-    w-full
-    break-words
-    text-center
-    text-3xl
-    sm:text-5xl
-    lg:text-7xl
-    font-bold
-    bg-gradient-to-r from-violet-400 via-purple-400 to-violet-400
-    bg-clip-text
-    text-transparent
-  "
+                  w-full
+                  max-w-full
+                  min-w-0
+                  text-center
+                  break-all
+                  overflow-wrap-anywhere
+                  text-7xl
+                  leading-tight
+                  font-bold
+                  bg-gradient-to-r
+                  from-violet-400
+                  via-purple-400
+                  to-violet-400
+                  bg-clip-text
+                  text-transparent
+                "
                         >
                           {currentParticipant?.name}
                         </h2>
@@ -1193,7 +1225,7 @@ export default function LuckyDraw() {
                     transition={{ delay: 0.5, type: 'spring' }}
                     className="space-y-4"
                   >
-                    <p className="text-4xl md:text-6xl font-bold text-white">
+                    <p className="text-4xl md:text-6xl font-bold text-white break-words overflow-wrap-anywhere">
                       {winner.name}
                     </p>
 
